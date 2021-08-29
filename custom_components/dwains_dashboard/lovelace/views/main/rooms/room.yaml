@@ -576,12 +576,24 @@
                       const entitiesFromGroup = states['{{ room["cover"] }}'].attributes['entity_id'];
                       var openCovers = 0;
                       var stateText = '';
+                      var map = new Map();
+
                       entitiesFromGroup.forEach(function(entity){
                         if(states[entity] && states[entity].state == 'open'){
                           openCovers++;
-                          stateText += '<br>1 ' + hass.localize('component.cover.state._.open') + ' ' + states[entity].attributes.current_position + '%';
+
+                          var stateString = hass.localize('component.cover.state._.open') + ' ' + states[entity].attributes.current_position + '%'
+                          var cnt = 1;
+                          if(map.has(stateString))
+                            cnt = map.get(stateString) + 1;
+                          
+                          map.set(stateString, cnt);
+                          console.log(map);
                         }
-                      });  
+                      });
+                      for (const [key, value] of map) {
+                        stateText += '<br>' + value  + ' ' + key;
+                      }                        
                       return entitiesFromGroup.length + ' {{ _dd_trans.cover.title_plural }}' + ((openCovers >= 1) ? stateText : '');
                     } else {
                       console.log("Invalid rooms.yaml:{{ room["name"] }}.cover entity!");
