@@ -1,4 +1,5 @@
 import logging
+from typing import Dict
 import yaml
 import os
 import logging
@@ -140,11 +141,21 @@ def process_yaml(hass, config_entry):
     if os.path.exists(hass.config.path("dwains-dashboard/configs")):
         
         entity_popups = OrderedDict()
+        customize_file = dict()
+
         # Get custom entity popups if set
         if ("customize_path" in config_entry.options):
             if os.path.exists(hass.config.path(config_entry.options["customize_path"])):
-                #_LOGGER.warning("Process customize.yaml")
-                customize_file = load_yamll(hass.config.path(config_entry.options["customize_path"]))
+                #if path is a directory, recursively load
+                if os.path.isdir(hass.config.path(config_entry.options["customize_path"])):
+                    for fname in loader._find_files(config_entry.options["customize_path"], "*.yaml"):
+                        loaded_yaml = load_yamll(fname)
+                        if isinstance(loaded_yaml, dict):
+                            customize_file.update(loaded_yaml)
+                #otherwise, just load a single file (assume dictionary output)
+                else:
+                    #_LOGGER.warning("Process customize.yaml")
+                    customize_file = load_yamll(hass.config.path(config_entry.options["customize_path"]))
 
                 for key, values in customize_file.items():
                     if ("dwains_dashboard_popup" in values):
