@@ -34,11 +34,11 @@ Promise.race(bases).then(() => {
               @click="${this._handleClick}"
             >
               <ha-icon
-                style="height: 30px; width: 30px; margin-left: -6px;"
+                style="height: 24px; width: 24px; margin-left: -6px;"
                 .icon="${this._config.icon}"
                 id="icon"
               ></ha-icon>
-              <h2>${this._config.subtitle}</h2>
+              <div class="sub-header">${this._config.subtitle}</div>
             </div>
         `;
       } else {
@@ -52,7 +52,7 @@ Promise.race(bases).then(() => {
           <div class="container">
             <div class="one">
               ${this.renderNav()}
-              <h1 style="padding-top: ${this._config.subtitle ? "0px" : "16px"};">${this._config.title}</h1>
+              <div class="header">${this._config.title}</div>
             </div>
             <div class="two">
               ${this.card}
@@ -83,17 +83,19 @@ Promise.race(bases).then(() => {
             background-color: var(--app-header-background-color);
             color: var(--app-header-text-color, white);
             margin-top: -2px;
+            padding-top: 20px;
             padding-left: 16px;
             box-shadow: none;
             border-radius: 0px;
           }
           ha-icon {
-            padding-top: 3px;
             display: inline-block;
             margin: auto;
+            padding-top: 5px;
             --mdc-icon-size: 100%;
             --iron-icon-width: 100%;
             --iron-icon-height: 100%;
+            float: left;
           }
           @media only screen and (min-width: 1466px) {
             ha-card {
@@ -101,15 +103,26 @@ Promise.race(bases).then(() => {
               border-radius: 4px;
             }
           }
-          h1 {
+          .header {
             color: var(--app-header-text-color, white) !important;
             font-size: 1.5em !important;
             font-weight: bold;
-            padding-top: 0px;
+            padding-top: 5px;
             padding-bottom: 20px !important;
             margin-top: 0px;
             margin-bottom: 0px;
+            float: left;
+            clear: both;
           }
+          .sub-header {
+            color: var(--app-header-text-color, white) !important;
+            font-size: 1.2em !important;
+            font-weight: normal;
+            padding-top: 5px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            float: left;
+          } 
           h2 {
             font-size: 13px;
             font-weight: bold;
@@ -123,11 +136,11 @@ Promise.race(bases).then(() => {
             overflow: auto;
           }
           .one {
-            width: 50%;
+            width: 80%;
             float: left;
           }
           .two {
-            width: 50%;
+            width: 20%;
             float: left;
           }
         `,

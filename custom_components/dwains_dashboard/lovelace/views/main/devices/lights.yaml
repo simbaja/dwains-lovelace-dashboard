@@ -41,7 +41,7 @@
                         {% endfor %}
                   styles:
                     card:
-                      - padding-top: 16px
+#                      - padding-top: 16px
                       - display: >
                           [[[
                             var onLights = 0;

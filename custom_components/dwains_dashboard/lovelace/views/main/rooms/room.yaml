@@ -588,7 +588,6 @@
                             cnt = map.get(stateString) + 1;
                           
                           map.set(stateString, cnt);
-                          console.log(map);
                         }
                       });
                       for (const [key, value] of map) {

@@ -51,20 +51,20 @@
                 template: persons_person
                 entity: {{ person["track"] }}
                 name: {{ person["name"] }}
-                custom_fields:
-                  graph:
-                    card:
-                      type: history-graph
-                      entities:
-                        - entity: {{ person["track"] }}
-                      style: |
-                        ha-card {
-                          box-shadow: none;
-                          background-color: var(--dwains-theme-primary);
-                        }
-                        .content {
-                          padding: 10px 0 0 0;
-                        }
+#                custom_fields:
+#                  graph:
+#                    card:
+#                      type: history-graph
+#                      entities:
+#                        - entity: {{ person["track"] }}
+#                      style: |
+#                        ha-card {
+#                          box-shadow: none;
+#                          background-color: var(--dwains-theme-primary);
+#                        }
+#                        .content {
+#                          padding: 10px 0 0 0;
+#                        }
               {% if person["page_entities"] and person["page_entities"]["entities"] %}
               - type: custom:dwains-flexbox-card
                 items_classes: 'col-xs-6'
