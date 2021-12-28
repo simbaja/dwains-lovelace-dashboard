@@ -7,6 +7,7 @@ dwains-theme-light:
   dwains-theme-accent: 'placeholder_primary_color'
   dwains-theme-names: '#101012'
   dwains-theme-grey: '#adadb7'
+  dwains-theme-border-radius: 5px
 
   dwains-theme-header-background: '#262628'
   dwains-theme-header-text: '#f2f2f7'
@@ -14,6 +15,7 @@ dwains-theme-light:
   dwains-theme-header-button-background: '#1c1c1e'
 
   app-header-background-color: 'var(--dwains-theme-header-background)'
+  app-header-background-color2: 'var(--dwains-theme-header-background)'
   app-header-text-color: 'var(--dwains-theme-header-text)'
 
   ## Lovelace Theme
