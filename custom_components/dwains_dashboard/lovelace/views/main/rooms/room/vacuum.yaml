@@ -30,25 +30,67 @@
               {% endif %}
               stats:
                 default:
-                  - attribute: filter_left
-                    unit: hours
-                    subtitle: Filter
-                  - attribute: side_brush_left
-                    unit: hours
-                    subtitle: Side brush
-                  - attribute: main_brush_left
-                    unit: hours
-                    subtitle: Main brush
-                  - attribute: sensor_dirty_left
-                    unit: hours
-                    subtitle: Sensors
+                {% if room["vacuum"]["stats"] and room["vacuum"]["stats"]["default"] %}
+                {% for stat in room["vacuum"]["stats"]["default"] %}
+                {% for stat in room["vacuum"]["stats"]["cleaning"] %}
+                  {% if stat.attribute %}
+                  - attribute: {% stat.attribute %}
+                  {% endif %}
+                  {% if stat.entity_id %}
+                  - entity_id: {% stat.entity_id %}
+                  {% endif %}
+                  {% if stat.unit %}
+                    unit: {% stat.unit %}
+                  {% endif %}
+                  {% if stat.subtitle %}
+                    subtitle: {% stat.subtitle %}
+                  {% endif %}
+                {% endfor %}
+                {% endfor %}
+                {% else %}
+                  - attribute: total_cleaned_area
+                    unit: m2
+                    subtitle: Cleaned Area
+                  - attribute: total_cleaning_time
+                    unit: mins
+                    subtitle: Cleaning Time
+                {% endif %}
                 cleaning:
+                {% if room["vacuum"]["stats"] and room["vacuum"]["stats"]["cleaning"] %}
+                {% for stat in room["vacuum"]["stats"]["cleaning"] %}
+                  {% if stat.attribute %}
+                  - attribute: {% stat.attribute %}
+                  {% endif %}
+                  {% if stat.entity_id %}
+                  - entity_id: {% stat.entity_id %}
+                  {% endif %}
+                  {% if stat.unit %}
+                    unit: {% stat.unit %}
+                  {% endif %}
+                  {% if stat.subtitle %}
+                    subtitle: {% stat.subtitle %}
+                  {% endif %}
+                {% endfor %}
+                {% else %}
                   - attribute: cleaned_area
                     unit: m2
                     subtitle: Cleaning area
                   - attribute: cleaning_time
                     unit: minutes
                     subtitle: Cleaning time
+                {% endif %}
+              {% if room["vacuum"]["shortcuts"] %}
+                shortcuts:
+                {% for shortcut in room["vacuum"]["shortcut"] %}
+                  - service: {% shortcut.service %}
+                    {% if shortcut.name %}
+                    name: {% shortcut.name %}
+                    {% endif %}
+                    {% if shortcut.icon %}
+                    icon: {% shortcut.icon %}
+                    {% endif %}
+                {% endfor %}
+              {% endif %}
             {% else %}
             - type: custom:more-info-card
               style: |
